@@ -1,1 +1,1 @@
-# pantrly-pal
+# pantry-pal
