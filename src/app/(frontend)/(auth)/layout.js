@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function AuthLayout({ children }) {
+export default function Layout({ children }) {
     return (
         <div
             className="relative flex min-h-screen w-full flex-col items-center justify-center bg-background-light p-4 dark:bg-background-dark"

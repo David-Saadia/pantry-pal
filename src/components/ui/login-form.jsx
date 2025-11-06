@@ -7,12 +7,15 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { PasswordInput } from '@/components//ui/password-input'
 import {supabase} from '@/lib/supabaseClient'
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 export function LoginForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
+    const router = useRouter();
 
     const handleLogin = async (e) => {
         e.preventDefault() // Prevent form from refreshing the page
@@ -28,16 +31,8 @@ export function LoginForm() {
           setError(error.message)
         } else {
           // Re-route to the main dashboard
-          alert('Congrats');
+          router.push('/main');
         }
-
-
-        // For now, just log the values
-        console.log('Logging in with:', email, password)
-        // Simulate a network request
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 1000)
     }
 
     return (

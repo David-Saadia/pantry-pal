@@ -24,9 +24,10 @@ export function ForgotPasswordForm() {
         if (error) {
             setError(error.message)
         } else {
-            setIsLoading(false)
             alert("Password reset link sent! Please check your email.");
         }
+
+        setIsLoading(false)
     }
 
     return (

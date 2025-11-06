@@ -55,6 +55,11 @@ const config = {
         'emerald-green': '#28a745',
         'charcoal-gray': '#343a40',
         'slate-gray': '#6c757d',
+        'background-light': '#F8F9FA',
+        'background-dark': '#112116',
+        'charcoal': '#343A40',
+        'medium-gray': '#6C757D',
+        'peach': '#FFDAB9',
       },
       borderRadius: {
         lg: "var(--radius)",

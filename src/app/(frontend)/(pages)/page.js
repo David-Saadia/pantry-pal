@@ -1,10 +1,7 @@
-import LoginPage from "@/app/(frontend)/(pages)/login/page";
-import AuthLayout from "@/app/(frontend)/(auth)/authLayout";
+import MainPage from "@/app/(frontend)/(pages)/main/page";
 
 export default function Home() {
     return (
-            <AuthLayout>
-                <LoginPage/>
-            </AuthLayout>
+                <MainPage/>
     );
 }

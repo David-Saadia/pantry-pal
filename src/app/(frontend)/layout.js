@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
                 fontBody.variable
             )}
         >
-        {children}
+            {children}
         </body>
         </html>
     )
