@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {supabase} from "@/lib/supabaseClient";
 import {useRouter} from "next/navigation";
 
-export default function SideNavBar({userName}) {
+export default function SideNavBar({userName, currentPage}) {
     const router = useRouter();
     const handleLogout = () => {
         supabase.auth.signOut()
@@ -43,9 +43,15 @@ export default function SideNavBar({userName}) {
                 <nav className="flex flex-col gap-2 mt-4">
                     <Link
                         href="/"
-                        className="flex items-center gap-3 px-3 py-2 rounded-lg bg-emerald-green/10 dark:bg-emerald-green/20"
+                        className={`flex items-center gap-3 px-3 py-2 rounded-lg ${
+                            currentPage === "home"
+                                ? "bg-emerald-green/10 dark:bg-emerald-green/20"
+                                : "hover:bg-gray-100 dark:hover:bg-white/10"
+                        }`}
                     >
-                        <span className="material-symbols-outlined text-emerald-green">home</span>
+                        <span className={`material-symbols-outlined ${
+                            currentPage === "home" ? "text-emerald-green" : "text-charcoal dark:text-gray-300"
+                        }`}>home</span>
                         <p className="text-charcoal dark:text-white text-sm font-medium leading-normal">
                             Home Page
                         </p>
@@ -53,30 +59,48 @@ export default function SideNavBar({userName}) {
 
                     <Link
                         href="/my-fridge"
-                        className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
+                        className={`flex items-center gap-3 px-3 py-2 rounded-lg ${
+                            currentPage === "my-fridge"
+                                ? "bg-emerald-green/10 dark:bg-emerald-green/20"
+                                : "hover:bg-gray-100 dark:hover:bg-white/10"
+                        }`}
                     >
-                        <span className="material-symbols-outlined text-charcoal dark:text-gray-300">kitchen</span>
-                        <p className="text-charcoal dark:text-gray-300 text-sm font-medium leading-normal">
+                        <span className={`material-symbols-outlined ${
+                            currentPage === "my-fridge" ? "text-emerald-green" : "text-charcoal dark:text-gray-300"
+                        }`}>kitchen</span>
+                        <p className="text-charcoal dark:text-white text-sm font-medium leading-normal">
                             My Fridge
                         </p>
                     </Link>
 
                     <Link
                         href="/favorites"
-                        className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
+                        className={`flex items-center gap-3 px-3 py-2 rounded-lg ${
+                            currentPage === "favorites"
+                                ? "bg-emerald-green/10 dark:bg-emerald-green/20"
+                                : "hover:bg-gray-100 dark:hover:bg-white/10"
+                        }`}
                     >
-                        <span className="material-symbols-outlined text-charcoal dark:text-gray-300">favorite</span>
-                        <p className="text-charcoal dark:text-gray-300 text-sm font-medium leading-normal">
+                        <span className={`material-symbols-outlined ${
+                            currentPage === "favorites" ? "text-emerald-green" : "text-charcoal dark:text-gray-300"
+                        }`}>favorite</span>
+                        <p className="text-charcoal dark:text-white text-sm font-medium leading-normal">
                             Favorite Recipes
                         </p>
                     </Link>
 
                     <Link
                         href="/ai-chat"
-                        className="flex items-items gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
+                        className={`flex items-center gap-3 px-3 py-2 rounded-lg ${
+                            currentPage === "ai-chat"
+                                ? "bg-emerald-green/10 dark:bg-emerald-green/20"
+                                : "hover:bg-gray-100 dark:hover:bg-white/10"
+                        }`}
                     >
-                        <span className="material-symbols-outlined text-charcoal dark:text-gray-300">smart_toy</span>
-                        <p className="text-charcoal dark:text-gray-300 text-sm font-medium leading-normal">
+                        <span className={`material-symbols-outlined ${
+                            currentPage === "ai-chat" ? "text-emerald-green" : "text-charcoal dark:text-gray-300"
+                        }`}>smart_toy</span>
+                        <p className="text-charcoal dark:text-white text-sm font-medium leading-normal">
                             AI Chef Chat
                         </p>
                     </Link>

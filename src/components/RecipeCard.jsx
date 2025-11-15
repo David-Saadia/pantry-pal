@@ -1,12 +1,20 @@
-export default function RecipeCard({ title, description, imageUrl, imageAlt }) {
+import {Button} from "@/components/ui/button";
+import FilledHeart from "@/components/FilledHeart";
+
+export default function RecipeCard({ title, description, imageUrl, imageAlt ,onDelete}) {
   return (
-    <div className="flex flex-col gap-4 rounded-lg bg-white dark:bg-charcoal/50 shadow-sm min-w-72 flex-shrink-0">
+    <div className="relative flex flex-col gap-4 rounded-lg bg-white dark:bg-charcoal/50 shadow-sm min-w-72 flex-shrink-0">
       <div
         className="w-full bg-center bg-no-repeat h-60 bg-cover rounded-t-lg"
         style={{backgroundImage: `url("${imageUrl}")`}}
         role="img"
         aria-label={imageAlt}
       />
+        {onDelete && (
+            <Button onClick={onDelete} size="icon" variant="link" className="absolute top-2 right-2">
+                <FilledHeart />
+            </Button>
+        )}
       <div className="flex flex-col flex-1 justify-between p-4 pt-0 gap-4">
         <div>
           <p className="text-charcoal dark:text-white text-base font-semibold leading-normal">

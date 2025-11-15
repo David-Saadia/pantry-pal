@@ -1,5 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
+import {authMiddleware} from "@/lib/middlewares/authMiddleware";
+
 
 export async function middleware(req) {
     let response = NextResponse.next({
@@ -9,6 +11,8 @@ export async function middleware(req) {
     })
 
     // Create Supabase client
+    // this supabase server is different from the one in supabaServer.js because in the middleware we can get
+    //the cookies from the request whereas in supabaseServer.js we don't have access to the cookies on the request
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -35,47 +39,13 @@ export async function middleware(req) {
         }
     )
 
-    // Get the session
-    const { data: { session } } = await supabase.auth.getSession()
+    response =await authMiddleware(supabase,req,response);
 
-    const { pathname } = req.nextUrl
 
-    // Define auth pages (login, register, etc.)
-    const isAuthPage = pathname.startsWith('/login') ||
-                       pathname.startsWith('/register') ||
-                       pathname.startsWith('/forgot-password') ||
-                       pathname.startsWith('/update-password')
-
-    // Define protected pages
-    const isProtectedPage = pathname.startsWith('/main') ||
-                           pathname.startsWith('/my-fridge') ||
-                           pathname.startsWith('/favorites') ||
-                           pathname.startsWith('/ai-chat')
-
-    // If logged in and trying to access auth pages → redirect to main
-    if (session && isAuthPage) {
-        return NextResponse.redirect(new URL('/main', req.url))
-    }
-
-    // If NOT logged in and trying to access protected pages → redirect to login
-    if (!session && isProtectedPage) {
-        return NextResponse.redirect(new URL('/login', req.url))
-    }
-
-    // Allow the request to proceed
-    return response
+    return response;
 }
 
-// Configure which routes use this middleware
-export const config = {
-    matcher: [
-        '/login',
-        '/register',
-        '/forgot-password',
-        '/update-password',
-        '/main',
-        '/my-fridge',
-        '/favorites',
-        '/ai-chat',
-    ]
-}
+
+
+
+

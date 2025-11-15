@@ -1,4 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import {supabase} from "@/lib/supabaseClient";
+import {checkRateLimit} from "@/lib/rateLimiter";
 
 
 const prompt =`You are an expert receipt-reading AI. Your task is to analyze the provided image of a grocery receipt and extract only the food and grocery items purchased.
@@ -54,6 +56,13 @@ Example: If the receipt says "Organic Milk 2% 1.5L", you must extract only "Orga
 }`
 
 export async function POST (request){
+   const {data:{user}}=await supabase.auth.getUser();
+
+   const rateLimitResult=checkRateLimit(user?.id);
+   if (!rateLimitResult.allowed){
+       return new Response(JSON.stringify({ error: "Rate limit exceeded" }), { status: 429, headers: { 'Retry-After': rateLimitResult.retryAfter } });
+   }
+
     try{
         //getting access to gemini
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);

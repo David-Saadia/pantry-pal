@@ -1,12 +1,11 @@
-'use client';
+'use client'
 
-import {useState} from 'react';
-import SideNavBar from '@/components/SideNavBar';
-import TrendingRecipes from '@/components/TrendingRecipes';
-import FridgeIngredients from '@/components/FridgeIngredients';
-import ReceiptUploadModal from '@/components/ReceiptUploadModal';
-import {useUser} from '@/contexts/UserContext';
+import FavoriteRecipes from "@/components/FavoriteRecipes";
+import {useDebounce} from "react-use";
+import {useEffect, useState} from "react";
+import SearchBar from "@/components/SearchBar";
 import PageWrapper from "@/components/PageWrapper";
+
 const recipes = [
     {
         id: 1,
@@ -45,16 +44,39 @@ const recipes = [
     }
 ];
 
-export default function MainPage() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    return (
-        <>
-        <PageWrapper currentPage={"home"}>
-            <TrendingRecipes recipes={recipes}/>
-            <FridgeIngredients onOpenReceiptModal={() => setIsModalOpen(true)}/>
-        </PageWrapper>
-    <ReceiptUploadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
-        </>
+export default function FavoritePage(){
+    const fetchFavorites=async ()=>{
+        setFavoriteRecipes(recipes);
+        setFilterRecipes(favoriteRecipes);
+    }
+    const filteredRecipes=(query="")=>{
+        setFilterRecipes(favoriteRecipes.filter((recipe)=>recipe.title.toLowerCase().includes(query.toLowerCase())));
+    }
 
-);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+    const [filterRecipes, setFilterRecipes] = useState([]);
+
+    useDebounce(() => {
+        setSearchTerm(searchTerm)
+        filteredRecipes(searchTerm);
+    }, 1000, [searchTerm])
+
+    useEffect(() => {
+        fetchFavorites();
+    }, []);
+
+
+
+return (
+    <>
+        <PageWrapper currentPage={"favorites"}>
+            <div className="max-w-4xl mx-auto grid grid-cols-1 gap-6">
+                <SearchBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+                <FavoriteRecipes filteredRecipes={filterRecipes} favoriteRecipes={favoriteRecipes} setFavoriteRecipes={setFavoriteRecipes} setFilterRecipes={setFilterRecipes}/>
+            </div>
+        </PageWrapper>
+    </>
+)
 }
+
