@@ -42,7 +42,7 @@ export default function SideNavBar({userName, currentPage}) {
 
                 <nav className="flex flex-col gap-2 mt-4">
                     <Link
-                        href="/"
+                        href="/pantry-pal/public"
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg ${
                             currentPage === "home"
                                 ? "bg-emerald-green/10 dark:bg-emerald-green/20"

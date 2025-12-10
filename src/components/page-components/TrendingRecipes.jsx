@@ -2,7 +2,7 @@
 
 import useEmblaCarousel from 'embla-carousel-react';
 import {useCallback} from 'react';
-import RecipeCard from './RecipeCard';
+import RecipeCard from '../RecipeCard';
 import Autoplay from 'embla-carousel-autoplay'
 
 

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { PasswordInput } from '@/components//ui/password-input'
+import { PasswordInput } from '@/components/auth/password-input'
 import {supabase} from '@/lib/supabaseClient'
 import {router} from "next/client";
 import {useRouter} from "next/navigation";

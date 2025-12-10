@@ -1,10 +1,10 @@
 'use client'
 
-import FavoriteRecipes from "@/components/FavoriteRecipes";
+import FavoriteRecipes from "@/components/page-components/FavoriteRecipes";
 import {useDebounce} from "react-use";
 import {useEffect, useState} from "react";
-import SearchBar from "@/components/SearchBar";
-import PageWrapper from "@/components/PageWrapper";
+import SearchBar from "@/components/ui/SearchBar";
+import PageWrapper from "@/components/ui/PageWrapper";
 
 const recipes = [
     {

@@ -53,6 +53,7 @@ const config = {
         },
         // Your custom colors
         'emerald-green': '#28a745',
+        'bright-green': '#17cf54',
         'charcoal-gray': '#343a40',
         'slate-gray': '#6c757d',
         'background-light': '#F8F9FA',

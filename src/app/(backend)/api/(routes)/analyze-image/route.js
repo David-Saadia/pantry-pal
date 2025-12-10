@@ -56,12 +56,12 @@ Example: If the receipt says "Organic Milk 2% 1.5L", you must extract only "Orga
 }`
 
 export async function POST (request){
-   const {data:{user}}=await supabase.auth.getUser();
+    const {data:{user}}=await supabase.auth.getUser();
 
-   const rateLimitResult=checkRateLimit(user?.id);
-   if (!rateLimitResult.allowed){
-       return new Response(JSON.stringify({ error: "Rate limit exceeded" }), { status: 429, headers: { 'Retry-After': rateLimitResult.retryAfter } });
-   }
+    const rateLimitResult=checkRateLimit(user?.id);
+    if (!rateLimitResult.allowed){
+        return new Response(JSON.stringify({ error: "Rate limit exceeded" }), { status: 429, headers: { 'Retry-After': rateLimitResult.retryAfter } });
+    }
 
     try{
         //getting access to gemini

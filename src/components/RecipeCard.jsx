@@ -1,5 +1,5 @@
 import {Button} from "@/components/ui/button";
-import FilledHeart from "@/components/FilledHeart";
+import FilledHeart from "@/components/ui/FilledHeart";
 
 export default function RecipeCard({ title, description, imageUrl, imageAlt ,onDelete}) {
   return (

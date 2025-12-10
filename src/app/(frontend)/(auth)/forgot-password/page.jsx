@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { CookingPot } from 'lucide-react' // Using lucide-react icon
-import { AuthCard } from '@/components/ui/auth-card'
-import {ForgotPasswordForm} from "@/components/ui/forgot-password-form";
+import { AuthCard } from '@/components/auth/auth-card'
+import {ForgotPasswordForm} from "@/components/auth/forgot-password-form";
 
 
 

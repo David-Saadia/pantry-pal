@@ -1,12 +1,15 @@
 'use client';
 
 import {useState} from 'react';
-import SideNavBar from '@/components/SideNavBar';
-import TrendingRecipes from '@/components/TrendingRecipes';
-import FridgeIngredients from '@/components/FridgeIngredients';
-import ReceiptUploadModal from '@/components/ReceiptUploadModal';
+import SideNavBar from '@/components/ui/SideNavBar';
+import TrendingRecipes from '@/components/page-components/TrendingRecipes';
+import FridgeIngredients from '@/components/page-components/FridgeIngredients';
+import ReceiptUploadPopUp from '@/components/pop-ups/ReceiptUploadPopUp';
 import {useUser} from '@/contexts/UserContext';
-import PageWrapper from "@/components/PageWrapper";
+import PageWrapper from "@/components/ui/PageWrapper";
+import IngredientFieldCheck from "@/components/pop-ups/IngredientFieldCheck";
+import IngredientsConfirmationPopUp from "@/components/pop-ups/IngredientsConfirmationPopUp";
+
 const recipes = [
     {
         id: 1,
@@ -47,14 +50,33 @@ const recipes = [
 
 export default function MainPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isConfirmIngredientsModal, setIsConfirmIngredientsModal] = useState(true);
+    const [scannedIngredients, setScannedIngredients] = useState([]);
+
+    const handleScanComplete = (data) => {
+        setScannedIngredients(data);
+        setIsModalOpen(false);
+        setIsConfirmIngredientsModal(true);
+    };
+
     return (
         <>
-        <PageWrapper currentPage={"home"}>
-            <TrendingRecipes recipes={recipes}/>
-            <FridgeIngredients onOpenReceiptModal={() => setIsModalOpen(true)}/>
-        </PageWrapper>
-    <ReceiptUploadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+            <PageWrapper currentPage={"home"}>
+                <TrendingRecipes recipes={recipes}/>
+                <FridgeIngredients onOpenReceiptModal={() => setIsModalOpen(true)}/>
+            </PageWrapper>
+            <ReceiptUploadPopUp
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onScanComplete={handleScanComplete}
+            />
+            <IngredientsConfirmationPopUp
+                isOpen={isConfirmIngredientsModal}
+                ingredients={scannedIngredients}
+                onClose={() => setIsConfirmIngredientsModal(false)}
+                setIngredients={setScannedIngredients}
+            />
         </>
 
-);
+    );
 }

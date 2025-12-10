@@ -3,8 +3,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { CookingPot } from 'lucide-react' // Using lucide-react icon
-import { AuthCard } from '@/components/ui/auth-card'
-import { LoginForm } from '@/components/ui/login-form'
+import { AuthCard } from '@/components/auth/auth-card'
+import { LoginForm } from '@/components/auth/login-form'
 
 
 

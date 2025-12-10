@@ -1,4 +1,4 @@
-import SideNavBar from "@/components/SideNavBar";
+import SideNavBar from "@/components/ui/SideNavBar";
 import {useUser} from "@/contexts/UserContext";
 
 const PageWrapper = ({children,currentPage}) => {
